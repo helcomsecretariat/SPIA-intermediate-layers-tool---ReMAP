@@ -1,0 +1,442 @@
+# configuration file
+
+# available processing geometries:
+# - point
+# - polyline
+# - polygon
+# - raster / raster_tif
+
+# available processing methods:
+# - buffer
+# - rings
+# - rivers
+# - spill
+# - birds
+# - mammals
+# - fish
+
+# available post-processing methods:
+# - dissolve
+# - clip
+# - sum_overlap
+# - max_one
+# - divide_by_area
+# - log_normalize
+
+# available rasterizing methods:
+# - copy
+# - area_coverage
+# - covered_cells
+# - sum_poly
+# - sum_poly_log
+# - grid_to_raster
+# - poly_to_grid
+# - poly_to_grid_max_area
+# - raster_mean
+# - raster_sum
+# - normalize
+# - log10
+
+[PL_01]
+    name = "Physical loss"
+    post_processing = ["dissolve"]
+    rasterizing = ["area_coverage", "normalize"]
+
+    [PL_01.HA_01]
+        name = "Land claim"
+        input = "land_claim"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "point", function = "buffer", value = 50, default = -nan, attribute = -nan }, 
+            { geometry = "polyline", function = "buffer", value = 30, default = -nan, attribute = -nan }, 
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_02]
+        name = "Watercourse modification"
+        input = "watercourse_modification"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = 50, default = -nan, attribute = -nan }, 
+            { geometry = "polyline", function = "buffer", value = 50, default = -nan, attribute = -nan }, 
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_03]
+        name = "Coastal defence and flood protection"
+        input = "coastal_defence_and_flood_protection"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = 50, default = -nan, attribute = -nan }, 
+            { geometry = "polyline", function = "buffer", value = 50, default = -nan, attribute = -nan }, 
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_04]
+        name = "Extraction of sand and gravel"
+        input = "extraction_of_minerals"
+        query = "type = 'sand' OR type = 'gravel' OR type = 'sand/gravel'"
+		years = true
+        processing = [
+            { geometry = "point", function = "copy" }, 
+            { geometry = "polyline", function = "copy" }, 
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_05]
+        name = "Dredging (capital)"
+        input = "dredging"
+        query = "type = 'capital'"
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = [25, 50], threshold = [5000], default = 50, attribute = "value" }, 
+            { geometry = "polyline", function = "buffer", value = [25, 50], threshold = [5000], default = 50, attribute = "value" }, 
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_06]
+        name = "Oil platforms"
+        input = "oil_platforms"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = 25, default = -nan, attribute = -nan }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_07]
+        name = "Pipelines (operational)"
+        input = "pipelines"
+        query = "status = 'operational'"
+		years = true
+        processing = [
+            { geometry = "polyline", function = "buffer", value = 15, default = -nan, attribute = -nan }, 
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_08]
+        name = "Wind farms (operational)"
+        input = "wind_turbines"
+        query = "status = 'operational'"
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = 30, default = -nan, attribute = -nan }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_09]
+        name = "Cables (operational)"
+        input = "cables"
+        query = "status = 'operational' OR status = 'Operational'"
+		years = true
+        processing = [
+            { geometry = "polyline", function = "buffer", value = '1.5 Meters', default = -nan, attribute = -nan }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_10]
+        name = "Harbours"
+        input = "harbours"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "point", function = "buffer", value = 200, default = -nan, attribute = -nan }, 
+            { geometry = "polygon", function = "buffer", value = 200, default = -nan, attribute = -nan }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_11]
+        name = "Marinas and leisure harbours"
+        input = "marinas_and_leisure_harbours"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "point", function = "buffer", value = 200, default = -nan, attribute = -nan }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_12]
+        name = "Bridges"
+        input = "bridges"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "polyline", function = "buffer", value = 2, default = -nan, attribute = -nan },
+			{ geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_13]
+        name = "Finfish mariculture"
+        input = "mariculture"
+        query = "type = 'finfish'"
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = 150, default = -nan, attribute = -nan }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_01.HA_14]
+        name = "Shellfish mariculture"
+        input = "mariculture"
+        query = "type = 'shellfish'"
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = 150, default = -nan, attribute = -nan }, 
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+
+[PL_03]
+    name = "Changes to hydrological conditions"
+    post_processing = []
+    rasterizing = ["raster_sum", "normalize"]
+
+    [PL_03.HA_29]
+        name = "Watercourse modification"
+        input = "watercourse_modification"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "point", function = "buffer", value = 1000, default = -nan, attribute = -nan }, 
+            { geometry = "polyline", function = "buffer", value = 1000, default = -nan, attribute = -nan }, 
+            { geometry = "polygon", function = "buffer", value = 1000, default = -nan, attribute = -nan }
+        ]
+        post_processing = ["dissolve", "clip"]
+        rasterizing = ["area_coverage"]
+    [PL_03.HA_30]
+        name = "Wind farms (operational)"
+        input = "wind_turbines"
+        query = "status = 'operational'"
+		years = true
+        processing = [
+            { geometry = "point", function = "rings", value = 1, range = [100, 200, 300], multiplier = [1, 0.666, 0.333], default = -nan, attribute = -nan }
+        ]
+        post_processing = ["clip", "sum_overlap", "max_one"]
+        rasterizing = ["sum_poly"]
+    [PL_03.HA_31]
+        name = "Oil platforms"
+        input = "oil_platforms"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "point", function = "rings", value = 1, range = [100, 200, 300, 400, 500], multiplier = [1, 0.8, 0.6, 0.4, 0.2], default = -nan, attribute = -nan }
+        ]
+        post_processing = ["clip", "sum_overlap", "max_one"]
+        rasterizing = ["sum_poly"]
+    [PL_03.HA_32]
+        name = "Hydropower dams"
+        input = "hydropower_dams"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "point", function = "rivers", rivers = "rivers_polyline", distance = 200, buffer = 2 }
+        ]
+        post_processing = []
+        rasterizing = ["covered_cells"]
+
+[PL_06]
+    name = "Input of heat"
+    post_processing = []
+    rasterizing = ["raster_sum", "normalize"]
+
+    [PL_06.HA_35]
+        name = "Discharge of warm water from nuclear power plants"
+        input = "discharge_of_warm_water"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "point", function = "rings", value = ["average", "val_"], range = [100, 200, 500, 1000], multiplier = [1, 0.8, 0.2, 0.1], default = "mean", attribute = -nan }
+        ]
+        post_processing = ["clip", "sum_overlap"]
+        rasterizing = ["sum_poly"]
+    [PL_06.HA_36]
+        name = "Fossil fuel energy production"
+        input = "fossil_fuel_energy_production"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "point", function = "rings", value = ["average", "val_"], range = [100, 200, 300, 400, 500, 1000], multiplier = [1, 0.8, 0.6, 0.4, 0.2, 0.1], default = 1, attribute = -nan }
+        ]
+        post_processing = ["clip", "sum_overlap"]
+        rasterizing = ["sum_poly"]
+
+[PL_10]
+    name = "Oil slicks and spills"
+    post_processing = []
+    rasterizing = ["raster_sum", "normalize"]
+
+    [PL_10.HA_40]
+        name = "Illegal oil discharges"
+        input = "illegal_oil_discharging"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "point", function = "spill", type = "oil" }
+        ]
+        post_processing = ["log_normalize"]
+        rasterizing = ["grid_to_raster"]
+    [PL_10.HA_41]
+        name = "Polluting ship accidents"
+        input = "polluting_ship_accidents"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "point", function = "spill", type = "ship" }
+        ]
+        post_processing = ["log_normalize"]
+        rasterizing = ["grid_to_raster"]
+
+[PL_11]
+    name = "Disturbance of species due to human presence"
+    post_processing = []
+    rasterizing = ["raster_sum", "normalize"]
+
+    [PL_11.HA_42]
+        name = "Recreational boating and sports"
+        input = "recreational_boating_and_sports"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "raster_tif", function = "normalize" }
+        ]
+        post_processing = []
+        rasterizing = []
+    [PL_11.HA_43]
+        name = "Bathing sites, beaches"
+        input = "bathing_sites"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "point", function = "copy" }
+        ]
+        post_processing = []
+        rasterizing = ["covered_cells"]
+    [PL_11.HA_44]
+        name = "Urban land use"
+        input = "urban_land_use"
+        query = "class = '111' OR class = '112' OR class = '121' OR class = '122' OR class = '123' OR class = '124' OR class = '131' OR class = '132' OR class = '133' OR class = '141' OR class = '142' or class = '1'"
+        years = false
+		processing = [
+            { geometry = "polygon", function = "buffer", value = 1000, default = -nan, attribute = -nan }
+        ]
+        post_processing = []
+        rasterizing = ["covered_cells"]
+    [PL_11.HA_55]
+        name = "Military training and operations"
+        input = "military_training_and_operations"
+        query = nan
+		years = false
+        processing = [
+            { geometry = "polygon", function = "copy" }
+        ]
+        post_processing = []
+        rasterizing = ["covered_cells"]
+    [PL_11.HA_56]
+        name = "Recreational scubadiving"
+        input = "diving_recreational_scuba_diving"
+        query = nan
+		years = false 
+        processing = [
+            { geometry = "point", function = "rings", value = ["average", "val_"], range = [300], multiplier = [1], default = "median", nodata = 1 }
+        ]
+        post_processing = ["clip", "sum_overlap"]
+        rasterizing = ["sum_poly", "normalize"]
+
+[PL_12]
+    name = "Extraction of, or mortality/injury of fish (landings)"
+    post_processing = []
+    rasterizing = ["raster_sum", "normalize"]
+
+    # fish layers can be defined in two ways
+    # either as 1. a single layer, in which case layers are separated by unique species found in 'species' field
+    # or as 2. separate layers in config file, then setting query for 'species' field as a parameter
+    # if choosing option 2, layers can also have separate input files, making query redundant
+
+    # input field: name of landing tonnes layer
+    # effort field: name of fishing effort layer
+    # attribute field: name of effort layer attribute to use
+    [PL_12.HA_45]
+        name = "Fish extraction commercial fisheries - herring and Fishing effort (all gear types)"
+        input = "extraction_of_fish"
+        query = nan
+		years = true
+        processing = [
+            { geometry = "polygon", function = "fish", effort = "fishing_effort_polygon", effort_attribute = "kwfhr", landing_attribute = "landing" }
+        ]
+        post_processing = ["clip"]
+        rasterizing = ["poly_to_grid_max_area", "log10_value_plus_1", "normalize"]
+
+[PL_15]
+    name = "Extraction of, or mortality/injury of seabirds - Bird hunting"
+    post_processing = []
+    rasterizing = ["raster_sum", "normalize"]
+
+    # 1 nautical mile = 1852 meters
+    [PL_15.HA_49]
+        name = "Game hunting of seabirds"
+        input = "extraction_of_or_mortality_injury_seabirds"
+        query = "origin = 'game hunting'"
+		years = true
+        processing = [
+            { geometry = "polygon", function = "birds", buffer = 5556, attribute = "value" }
+        ]
+        post_processing = ["clip", "divide_by_area", "log_normalize"]
+        rasterizing = ["poly_to_grid"]
+    [PL_15.HA_50]
+        name = "Predator control of seabirds"
+        input = "extraction_of_or_mortality_injury_seabirds"
+        query = "origin = 'predator control'"
+		years = true
+        processing = [
+            { geometry = "polygon", function = "birds", buffer = 5556, attribute = "value" }
+        ]
+        post_processing = ["clip", "divide_by_area", "log_normalize"]
+        rasterizing = ["poly_to_grid"]
+
+[PL_16]
+    name = "Extraction of, or mortality/injury of mammals - Mammals"
+    post_processing = []
+    rasterizing = ["raster_sum", "normalize"]
+
+    [PL_16.HA_51]
+        name = "Hunting of seals - Gray seal"
+        input = "extraction_of_or_mortality_injury_mammals"
+        query = "species = 'grey'"
+		years = true
+        processing = [
+            { geometry = "polygon", function = "mammals", buffer = 37040, attribute_quota = "quota", attribute_value = "value", attribute_year = "year", attribute_area = "area" }
+        ]
+        post_processing = ["clip", "divide_by_area"]
+        rasterizing = ["poly_to_grid_max_area", "normalize"]
+    [PL_16.HA_52]
+        name = "Hunting of seals - Ringed seal"
+        input = "extraction_of_or_mortality_injury_mammals"
+        query = "species = 'ringed'"
+		years = true
+        processing = [
+            { geometry = "polygon", function = "mammals", buffer = 37040, attribute_quota = "quota", attribute_value = "value", attribute_year = "year", attribute_area = "area" }
+        ]
+        post_processing = ["clip", "divide_by_area"]
+        rasterizing = ["poly_to_grid_max_area", "normalize"]
+    [PL_16.HA_53]
+        name = "Hunting of seals - Harbor seal"
+        input = "extraction_of_or_mortality_injury_mammals"
+        query = "species = 'harbour'"
+		years = true
+        processing = [
+            { geometry = "polygon", function = "mammals", buffer = 37040, attribute_quota = "quota", attribute_value = "value", attribute_year = "year", attribute_area = "area" }
+        ]
+        post_processing = ["clip", "divide_by_area"]
+        rasterizing = ["poly_to_grid_max_area", "normalize"]
+

@@ -1,0 +1,325 @@
+# configuration file
+
+# available processing geometries:
+# - point
+# - polyline
+# - polygon
+# - raster / raster_tif
+
+# available processing methods:
+
+# available post-processing methods:
+# - clip
+
+# available rasterizing methods:
+# - copy
+# - presence_abscence
+# - set_value
+# - normalize
+["Turtle distribution"]
+	input = "caretta_caretta_distribution"
+	years = false
+	processing = [
+		{ geometry = "polygon", function = "copy" }
+	]
+	post_processing = []
+	rasterizing = ["presence_abscence"]
+	
+	["Turtle distribution".EC_03]
+		name = "Turtle distribution"
+		query = nan
+
+["Coral distribution"]
+	input = "corallium_rubrum_distribution"
+	years = false
+	processing = [
+		{ geometry = "polygon", function = "copy" }
+	]
+	post_processing = []
+	rasterizing = ["presence_abscence"]
+	
+	["Coral distribution".EC_04]
+		name = "Coral distribution"
+		query = nan
+
+["Natura 2000"]
+	input = "natura_2000_habitats"
+	years = true
+	processing = [
+		{ geometry = "polygon", function = "copy" }
+	]
+	post_processing = []
+	rasterizing = ["presence_abscence"]
+	
+	["Natura 2000".EC_05]
+		name = "Sandbanks (1110)"
+		query = "biotope = 'Sandbanks (1110)'"
+	
+	["Natura 2000".EC_06]
+		name = "Estuaries (1130)"
+		query = "biotope = 'Estuaries (1130)'"
+	
+	["Natura 2000".EC_07]
+		name = "Mudflats and sandflats (1140)"
+		query = "biotope = 'Mudflats and sandflats (1140)'"
+		
+	["Natura 2000".EC_08]
+		name = "Coastal lagoons (1150)"
+		query = "biotope = 'Coastal lagoons (1150)'"
+
+	["Natura 2000".EC_09]
+		name = "Large shallow inlets and bays (1160)"
+		query = "biotope = 'Large shallow inlets and bays (1160)'"
+    	
+	["Natura 2000".EC_10]
+		name = "Reefs (1170)"
+		query = "biotope = 'Reefs (1170)'"
+    
+	["Natura 2000".EC_11]
+		name = "Posidonia beds (1120)"
+		query = "biotope = 'Posidonia beds (1120)'"
+    
+	["Natura 2000".EC_12]
+		name = "Submerged or partially submerged sea caves (8330)"
+		query = "biotope = 'Submerged or partially submerged sea caves (8330)'"
+    
+	["Natura 2000".EC_13]
+		name = "Baltic Esker islands (1610)"
+		query = "biotope = 'Baltic Esker islands (1610)'"
+    
+	["Natura 2000".EC_14]
+		name = "Submarine structures made by leaking gas (1180)"
+		query = "biotope = 'Submarine structures made by leaking gas (1180)'"
+    
+	["Natura 2000".EC_15]
+		name = "Boreal Baltic islets and small islands (1620)"
+		query = "biotope = 'Boreal Baltic islets and small islands (1620)'"
+
+["Birds distribution"]
+	input = "bird_distribution"
+	years = false
+	processing = [
+		{ geometry = "polygon", function = "copy" }
+	]
+	post_processing = []
+	rasterizing = ["presence_abscence"]
+	
+	["Birds distribution".EC_16]
+		name = "Birds distribution"
+		query = nan    
+	
+["Mammal distribution"]
+	input = "mammal_distribution"
+	years = false
+	processing = [
+		{ geometry = "polygon", function = "copy_and_set_1", attribute = "presence" }
+	]
+	post_processing = []
+	rasterizing = ["set_value"]
+	
+	["Mammal distribution".EC_17]
+		name = "Halichoerus grypus"
+		query = "species = 'Halichoerus grypus'"
+	
+	["Mammal distribution".EC_18]
+		name = "Phoca vitulina"
+		query = "species = 'Phoca vitulina'"
+		
+	["Mammal distribution".EC_19]
+		name = "Pusa hispida"
+		query = "species = 'Pusa hispida'"
+	
+	["Mammal distribution".EC_20]
+		name = "Stenella coeruleoalba"
+		query = "species = 'Stenella coeruleoalba'"
+	
+	["Mammal distribution".EC_21]
+		name = "Ziphius cavirostris"
+		query = "species = 'Ziphius cavirostris'"
+
+	["Mammal distribution".EC_22]
+		name = "Tursiops truncates"
+		query = "species = 'Tursiops truncates'"
+		
+	["Mammal distribution".EC_23]
+		name = "Grampus griseus"
+		query = "species = 'Grampus griseus'"
+		
+	["Mammal distribution".EC_24]
+		name = "Delphinus delphis"
+		query = "species = 'Delphinus delphis'"
+		
+	["Mammal distribution".EC_25]
+		name = "Balaenoptera physalus"
+		query = "species = 'Balaenoptera physalus'"
+		
+	["Mammal distribution".EC_26]
+		name = "Phocoena phocoena"
+		query = "species = 'Phocoena phocoena'"
+		
+["BHT"]
+	input = "bht"
+	years = false
+	processing = [
+		{ geometry = "polygon", function = "copy" }
+	]
+	post_processing = []
+	rasterizing = ["presence_abscence"]
+
+	["BHT".EC_27]
+		name = "Circalittoral rock and biogenic reef"
+		query = "BHT = 'Circalittoral rock and biogenic reef'"
+		
+	["BHT".EC_28]
+		name = "Circalittoral coarse sediment"
+		query = "BHT = 'Circalittoral coarse sediment'"
+		
+	["BHT".EC_29]
+		name = "Circalittoral mixed sediment"
+		query = "BHT = 'Circalittoral mixed sediment'"
+		
+	["BHT".EC_30]
+		name = "Circalittoral mud"
+		query = "BHT = 'Circalittoral mud'"
+		
+	["BHT".EC_31]
+		name = "Circalittoral sand"
+		query = "BHT = 'Circalittoral sand'"
+		
+	["BHT".EC_32]
+		name = "Infralittoral rock and biogenic reef"
+		query = "BHT = 'Circalittoral sand'"
+		
+	["BHT".EC_33]
+		name = "Infralittoral coarse sediment"
+		query = "BHT = 'Infralittoral coarse sediment'"
+		
+	["BHT".EC_34]
+		name = "Infralittoral mixed sediment"
+		query = "BHT = 'Infralittoral mixed sediment'"
+
+	["BHT".EC_35]
+		name = "Infralittoral mud"
+		query = "BHT = 'Infralittoral mud'"
+		
+	["BHT".EC_36]
+		name = "Infralittoral sand"
+		query = "BHT = 'Infralittoral sand'"
+		
+	["BHT".EC_37]
+		name = "Offshore circalittoral coarse sediment"
+		query = "BHT = 'Offshore circalittoral coarse sediment'"
+		
+	["BHT".EC_38]
+		name = "Offshore circalittoral mixed sediment"
+		query = "BHT = 'Offshore circalittoral mixed sediment'"
+		
+	["BHT".EC_39]
+		name = "Offshore circalittoral mud"
+		query = "BHT = 'Offshore circalittoral mud'"
+		
+	["BHT".EC_40]
+		name = "Offshore circalittoral rock and biogenic reef"
+		query = "BHT = 'Offshore circalittoral rock and biogenic reef'"
+		
+	["BHT".EC_41]
+		name = "Offshore circalittoral sand"
+		query = "BHT = 'Offshore circalittoral sand'"
+		
+	["BHT".EC_42]
+		name = "Bathyal"
+		query = "BHT = 'Bathyal'"
+		
+	["BHT".EC_43]
+		name = "Abyssal"
+		query = "BHT = 'Abyssal'"
+		
+	["BHT".EC_44]
+		name = "Circalittoral mud or Circalittoral sand"
+		query = "BHT = 'Circalittoral mud or Circalittoral sand'"
+		
+	["BHT".EC_45]
+		name = "Infralittoral mud or Infralittoral sand"
+		query = "BHT = 'Infralittoral mud or Infralittoral sand'"
+		
+	["BHT".EC_46]
+		name = "Offshore circalittoral mud or Offshore circalittoral sand"
+		query = "BHT = 'Offshore circalittoral mud or Offshore circalittoral sand'"
+		
+["Benthic species"]
+	input = "benthic_species_distribution"
+	years = true
+	processing = [
+		{ geometry = "polygon", function = "process_benthic_species", depth_value = -10 }
+	]
+	post_processing = []
+	rasterizing = ["presence_abscence"]
+
+	["Benthic species".EC_47]
+		name = "Characeae"
+		query = "species = 'Characeae'"
+		
+	["Benthic species".EC_48]
+		name = "Charophyte"
+		query = "species = 'Charophyte'"
+		
+	["Benthic species".EC_49]
+		name = "Fucus"
+		query = "species = 'Fucus'"
+
+	["Benthic species".EC_50]
+		name = "Furcellaria lumbricalis"
+		query = "species = 'Furcellaria lumbricalis'"
+		
+	["Benthic species".EC_51]
+		name = "Zostera marina"
+		query = "species = 'Zostera marina'"
+		
+	["Benthic species".EC_52]
+		name = "Mytilus"
+		query = "species = 'Mytilus'"
+		
+	["Benthic species".EC_53]
+		name = "Potamogeton"
+		query = "species = 'Potamogeton'"
+		
+	["Benthic species".EC_54]
+		name = "Myriophyllum"
+		query = "species = 'Myriophyllum'"
+		
+	["Benthic species".EC_55]
+		name = "Najas marina"
+		query = "species = 'Najas marina'"
+		
+	["Benthic species".EC_56]
+		name = "Fontinalis"
+		query = "species = 'Fontinalis'"
+		
+	["Benthic species".EC_57]
+		name = "Callitriche"
+		query = "species = 'Callitriche'"
+		
+	["Benthic species".EC_58]
+		name = "Zannichellia"
+		query = "species = 'Zannichellia'"
+		
+["Fish abundance"]
+	input = "fish_abundance"
+	years = true
+	processing = [
+		{ geometry = "polygon", function = "process_fish_species", square_id_attribute = "ICES", cpue_attribute = "CPUE", landings_attribute = "landings", year_attribute = "year" }
+	]
+	post_processing = []
+	rasterizing = ["set_value", "normalize"]
+
+	["Fish abundance".EC_59]
+		name = "Cod"
+		query = "species = 'cod'"
+		
+	["Fish abundance".EC_60]
+		name = "Herring"
+		query = "species = 'herring'"
+		
+	["Fish abundance".EC_61]
+		name = "Sprat"
+		query = "species = 'sprat'"
